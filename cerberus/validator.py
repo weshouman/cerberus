@@ -151,6 +151,7 @@ class BareValidator(object):
 
         self.document = None
         """ The document that is or was recently processed.
+            TODO: consider whether initializing with {} would be a better option
             Type: any :term:`mapping` """
         self._errors = errors.ErrorList()
         """ The list of errors that were encountered since the last document
@@ -305,7 +306,7 @@ class BareValidator(object):
                 else:
                     constraint = rules_set[rule]
 
-            value = self.document.get(field)
+            value = self.document.get(field) if self.document else None
 
             self.recent_error = errors.ValidationError(
                 document_path, schema_path, code, rule, constraint, value, info
